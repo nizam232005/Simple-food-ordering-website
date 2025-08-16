@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-10 text-gray-800">
+
+    <h1 class="text-4xl font-bold text-white mb-8 drop-shadow-lg">User List</h1>
+
+    <div class="overflow-x-auto shadow-lg rounded-2xl w-11/12 bg-white bg-opacity-90 backdrop-blur-md">
+        <table class="table-auto w-full border-collapse">
+            <thead class="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                <tr>
+                    <th class="px-6 py-3 text-left">Image</th>
+                    <th class="px-6 py-3 text-left">Name</th>
+                    <th class="px-6 py-3 text-left">Age</th>
+                    <th class="px-6 py-3 text-left">Gender</th>
+                    <th class="px-6 py-3 text-left">Email</th>
+                    <th class="px-6 py-3 text-left">Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr class="border-b hover:bg-gray-100 transition">
+                    <td class="px-6 py-4">
+                        {% if user.image %}
+                            <img src="{{ user.image.url }}" alt="User Image" class="w-14 h-14 rounded-full border border-gray-300 shadow-sm">
+                        {% else %}
+                            <span class="text-gray-500 italic">No Image</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 font-medium">{{ user.name }}</td>
+                    <td class="px-6 py-4">{{ user.age }}</td>
+                    <td class="px-6 py-4">
+                        {% if user.gender == "M" %} Male
+                        {% elif user.gender == "F" %} Female
+                        {% else %} Other
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4">{{ user.email }}</td>
+                    <td class="px-6 py-4">{{ user.address }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center py-6 text-gray-500 italic">No users found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

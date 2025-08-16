@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            background: linear-gradient(-45deg, #dfe9f3, #f0f0f0, #d7e1ec, #f5f7fa);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #1f2937;
+        }
+
+        label {
+            font-size: 14px;
+            color: #374151;
+            display: block;
+            margin-bottom: 6px;
+            margin-top: 16px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 15px;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 12px;
+            background: linear-gradient(to right, #06b6d4, #3b82f6);
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #0284c7, #2563eb);
+            transform: translateY(-2px);
+        }
+
+        .icon {
+            text-align: center;
+            font-size: 40px;
+            color: #3b82f6;
+            margin-bottom: 10px;
+        }
+
+        @media screen and (max-width: 500px) {
+            .login-box {
+                padding: 30px 20px;
+                border-radius: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <form method="POST" class="login-box">
+        {% csrf_token %}
+        <div class="icon">
+            <i class="fas fa-user-shield"></i>
+        </div>
+        <h2>Admin Login</h2>
+
+        <label for="email">Username</label>
+        <input type="text" name="email" id="email" required placeholder="Enter username">
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required placeholder="Enter password">
+
+        <button type="submit">Login</button>
+    </form>
+
+</body>
+</html>

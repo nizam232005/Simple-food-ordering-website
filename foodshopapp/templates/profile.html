@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Profile</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+            padding: 50px;
+
+            /* High-quality food background */
+            background: url('https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+
+        .profile-card {
+            background: rgba(0, 0, 0, 0.65); /* Dark glass effect for readability */
+            padding: 30px 50px;
+            border-radius: 15px;
+            display: inline-block;
+            animation: fadeIn 1.2s ease-in-out;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+            max-width: 400px;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .profile-card img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            border: 3px solid #fff;
+            object-fit: cover;
+        }
+
+        .profile-card h2 {
+            margin: 15px 0 5px;
+        }
+
+        .profile-card p {
+            margin: 6px 0;
+        }
+
+        .edit-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 25px;
+            background-color: #f39c12;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-btn:hover {
+            background-color: #d68910;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        {% if c.image %}
+            <img src="{{ c.image.url }}" alt="Profile Picture">
+        {% else %}
+            <img src="{% static 'img/default.jpg' %}" alt="Default Profile Picture">
+        {% endif %}
+        <h2>{{ c.name }}</h2>
+        <p><strong>Age:</strong> {{ c.age }}</p>
+        <p><strong>Gender:</strong> {{ c.get_gender_display }}</p>
+        <p><strong>Email:</strong> {{ c.email }}</p>
+        <p><strong>Address:</strong> {{ c.address }}</p>
+
+        <!-- Edit Profile Button -->
+        <a href="{% url 'editprofile' %}" class="edit-btn">Edit Profile</a>
+    </div>
+</body>
+</html>

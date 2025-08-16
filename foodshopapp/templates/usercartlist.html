@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animated Gradient Background */
+        body {
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a1c4fd, #c2e9fb);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-6">
+
+    <h1 class="text-4xl font-bold text-white mb-8 drop-shadow-lg">🛒 Your Shopping Cart</h1>
+
+    {% if cart_items %}
+        <div class="w-full max-w-4xl bg-white/80 backdrop-blur-md rounded-2xl shadow-xl overflow-hidden">
+            <table class="w-full text-left">
+                <thead>
+                    <tr class="bg-pink-500 text-white">
+                        <th class="p-4">Product</th>
+                        <th class="p-4">Price</th>
+                        <th class="p-4">Quantity</th>
+                        <th class="p-4">Total</th>
+                        <th class="p-4">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr class="border-b hover:bg-pink-100 transition">
+                        <td class="p-4 flex items-center gap-3">
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-16 h-16 object-cover rounded-lg shadow-md">
+                            <span class="font-medium">{{ item.product.name }}</span>
+                        </td>
+                        <td class="p-4 text-pink-600 font-semibold">₹{{ item.product.price }}</td>
+                        <td class="p-4">{{ item.quantity }}</td>
+                        <td class="p-4 text-green-600 font-semibold">₹{{ item.totalprice }}</td>
+                       
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+        </div>
+
+        <div class="mt-6 w-full max-w-4xl flex justify-between items-center">
+            <a href="{% url 'userproductlist' %}" 
+               class="px-6 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition">
+                Continue Shopping
+            </a>
+        </div>
+    {% else %}
+        <div class="bg-white/80 backdrop-blur-md p-10 rounded-2xl shadow-lg text-center">
+            <h2 class="text-2xl font-bold text-gray-700">Your cart is empty 😔</h2>
+            <p class="mt-3 text-gray-500">Looks like you haven’t added anything yet.</p>
+            <a href="{% url 'userproductlist' %}" 
+               class="mt-5 inline-block px-6 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition">
+                Browse Products
+            </a>
+        </div>
+    {% endif %}
+
+</body>
+</html>

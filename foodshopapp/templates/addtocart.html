@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add to Cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Smooth fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Button hover effect */
+        .btn-hover {
+            transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+        }
+        .btn-hover:hover {
+            transform: scale(1.05);
+            background-color: #f97316; /* orange */
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-orange-100 to-orange-200 min-h-screen flex justify-center items-center">
+
+    <div class="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md fade-in">
+        <div class="flex flex-col items-center text-center">
+            <!-- Product Image -->
+            <img src="{% static 'images/sample-product.jpg' %}" alt="Product Image"
+                 class="w-40 h-40 object-cover rounded-xl shadow-md mb-4">
+
+            <!-- Product Details -->
+            <h1 class="text-2xl font-bold text-gray-800 mb-2">{{ product.name }}</h1>
+            <p class="text-lg text-gray-600 mb-4">₹{{ product.price }}</p>
+            <p class="text-sm text-gray-500 mb-4">{{ product.description }}</p>
+
+            <!-- Add to Cart Form -->
+            <form method="POST" action="{% url 'addtocart' product.id %}" class="w-full">
+                {% csrf_token %}
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <label for="quantity" class="text-gray-700 font-medium">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1"
+                           class="w-20 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-center">
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit"
+                        class="w-full bg-orange-500 text-white py-3 rounded-xl font-semibold btn-hover">
+                    🛒 Add to Cart
+                </button>
+            </form>
+
+            <!-- Back to Products -->
+            <a href="{% url 'userproductlist' %}" 
+               class="mt-4 text-orange-500 hover:underline text-sm">
+                ← Back to Products
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

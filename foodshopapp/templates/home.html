@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+    <style>
+        /* Reset */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: url("{% static 'img/food-bg.jpg' %}") no-repeat center center/cover,
+                        url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        /* Glass effect container */
+        .dashboard-container {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.75);
+            max-width: 1100px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+            padding: 40px;
+            animation: slideIn 0.8s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #d35400;
+            letter-spacing: 1px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            font-weight: 600;
+            font-size: 1.4rem;
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 18px;
+        }
+
+        .card a {
+            display: inline-block;
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            font-weight: 600;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card a:hover {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            box-shadow: 0 8px 20px rgba(211, 84, 0, 0.4);
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-container { padding: 30px 20px; }
+            h1 { font-size: 1.8rem; }
+            .card h3 { font-size: 1.2rem; }
+        }
+    </style>
+    <!-- Add icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Welcome, {{ c.name|default:"Foodie" }} 🍽️</h1>
+        <div class="cards">
+            <div class="card">
+                <div class="icon"><i class="fas fa-hamburger" style="color:#e67e22;"></i></div>
+                <h3>Order Food</h3>
+                <p>Browse delicious dishes & place your order</p>
+                <a href="{% url 'userproductlist' %}">Start Ordering</a>
+            </div>
+            <div class="card">
+                <div class="card">
+    <div class="icon"><i class="fas fa-shopping-cart" style="color:#27ae60;"></i></div>
+    <h3>Cart List</h3>
+    <p>View items you have added to your cart</p>
+    <a href="{% url 'usercartlist' %}">Add to Cart</a>
+</div>
+
+            </div>
+            <div class="card">
+                <div class="icon"><i class="fas fa-heart" style="color:#c0392b;"></i></div>
+                <h3>Favorites</h3>
+                <p>Your saved & loved meals</p>
+                <a href="{% url 'favourites' %}">View Favorites</a>
+
+            </div>
+            <div class="card">
+                <div class="icon"><i class="fas fa-user-circle" style="color:#2980b9;"></i></div>
+                <h3>My Profile</h3>
+                <p>View your personal details</p>
+                <a href="{% url 'profile' %}">View Profile</a>
+            </div>
+            <div class="card">
+                <div class="icon"><i class="fas fa-edit" style="color:#f39c12;"></i></div>
+                <h3>Edit Profile</h3>
+                <p>Update your account information</p>
+                <a href="{% url 'editprofile' %}">Edit</a>
+            </div>
+            <div class="card">
+                <div class="icon"><i class="fas fa-cog" style="color:#8e44ad;"></i></div>
+                <h3>Settings</h3>
+                <p>Manage your account preferences</p>
+                <a href="#">Go to Settings</a>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>
